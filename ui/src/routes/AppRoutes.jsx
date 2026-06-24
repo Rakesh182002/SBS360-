@@ -19,8 +19,11 @@ const EmployeeDetails = React.lazy(() => import('../pages/ERP Master/employee/Em
 const ClientList = React.lazy(() => import('../pages/ERP Master/client/ClientList'));
 const ClientDetails = React.lazy(() => import('../pages/ERP Master/client/ClientDetails'));
 
+// Supplier Sub-Pages
+const SupplierList = React.lazy(() => import('../pages/ERP Master/supplier/SupplierList'));
+const SupplierDetails = React.lazy(() => import('../pages/ERP Master/supplier/SupplierDetails'));
+
 const Product = React.lazy(() => import('../pages/ERP Master/product/Product'));
-// const Supplier = React.lazy(() => import('../pages/ERP Master/supplier/Supplier'));
 const Vehicle = React.lazy(() => import('../pages/ERP Master/vehicle/Vehicle'));
 const Unauthorized = React.lazy(() => import('../pages/Unauthorized'));
 const NotFound = React.lazy(() => import('../pages/NotFound'));
@@ -91,14 +94,22 @@ export default function AppRoutes() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
+          <Route
             path="/supplier"
             element={
               <ProtectedRoute requiredPermission="read:users">
-                <Supplier />
+                <SupplierList />
               </ProtectedRoute>
             }
-          /> */}
+          />
+          <Route
+            path="/supplier/view/:id"
+            element={
+              <ProtectedRoute requiredPermission="read:users">
+                <SupplierDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/vehicle"
             element={
