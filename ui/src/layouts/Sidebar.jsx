@@ -8,15 +8,12 @@ import {
 } from '@mui/material';
 
 // Icons
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import SupportIcon from '@mui/icons-material/Support';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
-import SecurityIcon from '@mui/icons-material/Security';
 import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import PersonIcon from '@mui/icons-material/Person';
 
 import { logoutSuccess } from '../redux/slices/authSlice';
 import API from '../services/api';
@@ -107,6 +104,31 @@ export default function Sidebar({ open, mobileOpen, onDrawerToggle, isMobile }) 
         { label: 'Product', path: '/product', permission: 'read:users' },
         { label: 'Supplier', path: '/supplier', permission: 'read:users' },
         { label: 'Vehicle', path: '/vehicle', permission: 'read:users' }
+      ]
+    },
+    {
+      label: 'Material Mgmt Transaction',
+      type: 'submenu',
+      key: 'material',
+      icon: <SettingsIcon/>,
+      items: [
+        { label: 'Store', path: '/store', permission: 'read:store' },
+        { label: 'Inward', path: '/inward', permission: 'read:Inward' },
+        { label: 'Outward', path: '/outward', permission: 'read:Outward' },
+        { label: 'Stock', path: '/stock', permission: 'read:stock' },
+        { label: 'Stock Taking', path: '/stocktaking', permission: 'read:stocktaking' }
+      ]
+    },
+    {
+      label:'Safety ',
+      type:'submenu',
+      key:'safety',
+      icon:<SupportIcon/>,
+      items:[
+        {label:'DTTR', path:'/dttr', permission:'read:dttr'},
+        {label:'PTW', path:'/ptw', permission:'read:ptw'},
+        {label:'Safety Inspection', path:'/safetyinspection', permission:'read:safetyinspection'},
+        {label:'Safety Inspection New', path:'/safetyinspectionnew', permission:'read:safetyinspectionnew'}        
       ]
     }
   ];

@@ -21,7 +21,12 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 // 1. Loading Overlay Spinner
 export const Loader = ({ open }) => (
@@ -88,6 +93,120 @@ export const FormSelect = ({ label, name, value, onChange, options = [], require
     {helperText && <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.5 }}>{helperText}</Typography>}
   </FormControl>
 );
+
+// 5b. Reusable MUI Date Picker Component
+export const FormDatePicker = ({ 
+  label, 
+  value, 
+  onChange, 
+  error = false, 
+  helperText = '', 
+  maxDate, 
+  minDate,
+  required = false,
+  margin = 'normal',
+  size,
+  ...props 
+}) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+        label={label}
+        value={value ? dayjs(value) : null}
+        onChange={(newValue) => {
+          onChange(newValue ? newValue.format('YYYY-MM-DD') : '');
+        }}
+        format="DD/MM/YYYY"
+        maxDate={maxDate ? dayjs(maxDate) : undefined}
+        minDate={minDate ? dayjs(minDate) : undefined}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: required,
+            error: error,
+            helperText: helperText,
+            margin: margin,
+            size: size
+          }
+        }}
+        {...props}
+      />
+    </LocalizationProvider>
+  );
+};
+
+// 5c. Reusable MUI Time Picker Component
+export const FormTimePicker = ({ 
+  label, 
+  value, 
+  onChange, 
+  error = false, 
+  helperText = '', 
+  required = false,
+  margin = 'normal',
+  size,
+  ...props 
+}) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <TimePicker
+        label={label}
+        value={value ? dayjs(`2000-01-01T${value}`) : null}
+        onChange={(newValue) => {
+          onChange(newValue ? newValue.format('HH:mm') : '');
+        }}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: required,
+            error: error,
+            helperText: helperText,
+            margin: margin,
+            size: size
+          }
+        }}
+        {...props}
+      />
+    </LocalizationProvider>
+  );
+};
+
+// 5d. Reusable MUI DateTime Picker Component
+export const FormDateTimePicker = ({ 
+  label, 
+  value, 
+  onChange, 
+  error = false, 
+  helperText = '', 
+  required = false,
+  margin = 'normal',
+  size,
+  ...props 
+}) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DateTimePicker
+        label={label}
+        value={value ? dayjs(value) : null}
+        onChange={(newValue) => {
+          onChange(newValue ? newValue.format('YYYY-MM-DDTHH:mm') : '');
+        }}
+        format="DD/MM/YYYY hh:mm A"
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: required,
+            error: error,
+            helperText: helperText,
+            margin: margin,
+            size: size
+          }
+        }}
+        {...props}
+      />
+    </LocalizationProvider>
+  );
+};
 
 // 6. Statistics / KPI Card
 export const StatCard = ({ title, value, icon, color = 'primary.main', trend = '' }) => {
